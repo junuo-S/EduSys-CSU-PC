@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QApplication, QWidget, QMessageBox
 from PyQt5.QtGui import QIcon
-import sys1
+import sys
 from src.Login import MyLogin
 from src.EduSystem import MyEduSystem
 from src.MyIntroduce import MyIntroduce

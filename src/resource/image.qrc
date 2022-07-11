@@ -1,0 +1,7 @@
+<RCC>
+  <qresource prefix=":/">
+    <file>Image/CSU2.ico</file>
+    <file>Image/CSU.ico</file>
+    <file>Image/中南大学校徽.jpg</file>
+  </qresource>
+</RCC>

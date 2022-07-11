@@ -117,6 +117,10 @@ class MyEduSystem(QWidget, Ui_eduSys):
                 column += 1
                 self.tableValid.setItem(row, column, QTableWidgetItem(data))
                 self.tableValid.item(row, column).setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
+        w = 275
+        for i in range(self.tableValid.columnCount()):
+            w += self.tableValid.columnWidth(i)
+        self.resize(w, self.height())
 
     def dealReadyOrigin(self, originScores) -> None:
         self.tableOrigin.setRowCount(len(originScores))
@@ -128,6 +132,10 @@ class MyEduSystem(QWidget, Ui_eduSys):
                 column += 1
                 self.tableOrigin.setItem(row, column, QTableWidgetItem(data))
                 self.tableOrigin.item(row, column).setTextAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
+        w = 275
+        for i in range(self.tableOrigin.columnCount()):
+            w += self.tableOrigin.columnWidth(i)
+        self.resize(w, self.height())
 
     def dealValid(self, heads, options):
         self.combo1stTerm.blockSignals(True)
@@ -173,7 +181,8 @@ class MyEduSystem(QWidget, Ui_eduSys):
         self.combo1stTerm.clear()
         self.combo2ndTerm.clear()
         self.combo3rdTerm.clear()
-        self.on_radioValid_released()
+        self.radioValid.setChecked(True)
+        self.tabChange.emit(0)
         self.session = session
         self.name = name
         self.user = user
@@ -438,17 +447,29 @@ class MyEduSystem(QWidget, Ui_eduSys):
 
     def on_radioValid_released(self):
         self.tabChange.emit(0)
+        w = 275
+        for i in range(self.tableValid.columnCount()):
+            w += self.tableValid.columnWidth(i)
+        self.resize(w, self.height())
 
     def on_radioRank_released(self):
         self.tabChange.emit(1)
         if self.tableRank.rowCount() == 0:
             self.on_rankSearch_released()
+        w = 275
+        for i in range(self.tableRank.columnCount()):
+            w += self.tableRank.columnWidth(i)
+        self.resize(w, self.height())
 
     def on_radioOrigin_released(self):
         self.tabChange.emit(2)
         if self.isFirstTab:
             self.isFirstTab = False
             self.combo3rdTerm.currentTextChanged.emit(self.combo3rdTerm.currentText())
+        w = 275
+        for i in range(self.tableOrigin.columnCount()):
+            w += self.tableOrigin.columnWidth(i)
+        self.resize(w, self.height())
 
     def on_buttonChange_released(self) -> None:
         self.tableClass.clearContents()

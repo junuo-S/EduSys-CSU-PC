@@ -446,7 +446,7 @@ class MyEduSystem(QWidget, Ui_eduSys):
                     total = len(ret) // 6
                     start = 0
                     for i in range(total):
-                        start += i * 6
+                        start = i * 6
                         for e in self.dealEventList(ret[start: start+6]):
                             classCalendar.addEvent(e)
                     pass

@@ -443,7 +443,7 @@ class MyEduSystem(QWidget, Ui_eduSys):
 
                 # 下面应对多门课程在同一格子里的情况
                 if len(ret) % 6 == 0:
-                    total = len(ret) / 6
+                    total = len(ret) // 6
                     start = 0
                     for i in range(total):
                         start += i * 6

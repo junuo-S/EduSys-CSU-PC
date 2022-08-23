@@ -251,7 +251,7 @@ class MyEduSystem(QWidget, Ui_eduSys):
 
     def dealEventList(self, lis):
         # 叫它的返回值是一个MyEvent类型的列表 方便下面添加
-        event = list()
+        event = []
         timeDic = {'一': 1, '二': 2, '三': 3, '四': 4, '五': 5, '六': 6, '日': 7}
         # 下面这些是事件的参数
         summary = f'{lis[0]}@{lis[-1]}'
@@ -284,7 +284,8 @@ class MyEduSystem(QWidget, Ui_eduSys):
         minu = sec = 0
         everyDay = {1: 8, 2: 10, 3: 14, 4: 16, 5: 19, 6:21}
         temp = lis[4].rstrip("节")
-        temp = temp[2:]
+        # temp = temp[2:]
+        temp = temp.split('-')[1]
         temp = int(temp) / 2
         hour = everyDay[temp]
 
@@ -428,14 +429,29 @@ class MyEduSystem(QWidget, Ui_eduSys):
                         break
                 # print(ret)
                 # print(len(ret))
-                if len(ret) == 6:
-                    for e in self.dealEventList(ret):
-                        classCalendar.addEvent(e)
-                elif len(ret) == 12:
-                    for e in self.dealEventList(ret[:6]):
-                        classCalendar.addEvent(e)
-                    for e in self.dealEventList(ret[6:]):
-                        classCalendar.addEvent(e)
+
+                # 下面这段只能处理同一个格子有一个或两个课程的情况
+                # 如果有超过两个课程 以下处理方式不可行 会遗漏课程
+                # if len(ret) == 6:
+                #     for e in self.dealEventList(ret):
+                #         classCalendar.addEvent(e)
+                # elif len(ret) == 12:
+                #     for e in self.dealEventList(ret[:6]):
+                #         classCalendar.addEvent(e)
+                #     for e in self.dealEventList(ret[6:]):
+                #         classCalendar.addEvent(e)
+
+                # 下面应对多门课程在同一格子里的情况
+                if len(ret) % 6 == 0:
+                    total = len(ret) / 6
+                    start = 0
+                    for i in range(total):
+                        start += i * 6
+                        for e in self.dealEventList(ret[start: start+6]):
+                            classCalendar.addEvent(e)
+                    pass
+                else:
+                    print(ret)
         fileName = QFileDialog.getSaveFileName(self, "保存ics文件", '../' + name, "日程文件(*.ics)")
         if fileName[0] == "":
             return

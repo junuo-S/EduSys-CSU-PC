@@ -285,7 +285,10 @@ class MyEduSystem(QWidget, Ui_eduSys):
         everyDay = {1: 8, 2: 10, 3: 14, 4: 16, 5: 19, 6:21}
         temp = lis[4].rstrip("节")
         # temp = temp[2:]
-        temp = temp.split('-')[1]
+        if '-' in temp:
+            temp = temp.split('-')[1]
+        else:
+            temp = temp[2:]
         temp = int(temp) / 2
         hour = everyDay[temp]
 
